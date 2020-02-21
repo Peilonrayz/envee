@@ -1,4 +1,4 @@
-envee
+Envee
 =====
 
 .. image:: https://travis-ci.com/Peilonrayz/envee.svg?branch=master
@@ -8,7 +8,7 @@ envee
 About
 -----
 
-Easily manage multiple programming environments with ease.
+Manage multiple programming environments with ease.
 
 Installation
 ------------
@@ -37,4 +37,4 @@ To run all tests run ``nox``. No venv is needed; nox makes all of them for us.
 License
 -------
 
-envee is available under the MIT license.
+Envee is available under the MIT license.

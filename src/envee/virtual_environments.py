@@ -1,34 +1,33 @@
-from typing import Dict, Optional, Union, Type
 import collections
 import functools
+import io
 import logging
 import os.path
 import pathlib
-import sys
-import subprocess
 import shutil
-import textwrap
+import subprocess
+import sys
 import tempfile
-import io
+import textwrap
+from typing import Dict, Optional, Type, Union
 
 import teetime
 
-from . import core
-from . import package_managers
+from . import core, package_managers
 
 __all__ = [
-    'VirtualEnvironment',
-    'VirtualEnv',
+    "VirtualEnvironment",
+    "VirtualEnv",
 ]
 
 
 class VirtualEnvironment:
     __slots__ = (
-        '_path',
-        '_program',
-        '_flags',
-        '_package_manager',
-        '_expand_program',
+        "_path",
+        "_program",
+        "_flags",
+        "_package_manager",
+        "_expand_program",
     )
 
     def __init__(
@@ -57,9 +56,7 @@ class VirtualEnvironment:
     def load(self, force: bool = False) -> core.Environment:
         self.make(force=force)
         return core.Environment(
-            self._env(),
-            self._package_manager(),
-            self._expand_program,
+            self._env(), self._package_manager(), self._expand_program,
         )
 
     def remove(self) -> None:
@@ -83,14 +80,12 @@ class VirtualEnv(VirtualEnvironment):
     def _make(self) -> None:
         flags = self._flags or core.Flags()
         if self._program is not None:
-            flags = flags(f'--python={self._program}')
-        core.popen(['python', '-m', 'virtualenv', self._path] + flags).log()
+            flags = flags(f"--python={self._program}")
+        core.popen(["python", "-m", "virtualenv", self._path] + flags).log()
 
     def _env(self) -> Dict[str, str]:
         env = super()._env()
-        env['PATH'] = (
-            os.path.abspath(os.path.join(self._path, 'Scripts'))
-            + ';'
-            + env['PATH']
+        env["PATH"] = (
+            os.path.abspath(os.path.join(self._path, "Scripts")) + ";" + env["PATH"]
         )
         return env
